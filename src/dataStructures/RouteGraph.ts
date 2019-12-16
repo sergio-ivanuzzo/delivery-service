@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 class RouteGraph {
 
     adgencyList: Map<string, Array<string>>;
@@ -19,6 +21,7 @@ class RouteGraph {
         }
 
         this.mapCostToRoute.set(vertex + node, cost);
+        toast.success(`Route ${vertex + node + cost} was successfully added!`);
     }
 
     protected setVertex(vertex: string) {

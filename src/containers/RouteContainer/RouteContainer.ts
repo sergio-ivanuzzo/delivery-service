@@ -21,6 +21,7 @@ class RouteContainer extends React.Component<IRouteContainerProps> {
             route: this.props.route,
             cost: this.props.cost,
             routes: this.props.routes,
+            routesBetweenTowns: this.props.routesBetweenTowns,
             addRoute: this.addRoute,
             calculateDeliveryRouteCost: this.calculateDeliveryRouteCost,
             calculatePossibleDeliveryRoutes: this.calculatePossibleDeliveryRoutes
@@ -54,6 +55,7 @@ const mapStateToProps = (state: IStoreState) => ({
     route: state.routeReducer.route,
     cost: state.routeReducer.cost,
     routes: state.routeReducer.routes,
+    routesBetweenTowns: state.routeReducer.routesBetweenTowns,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({

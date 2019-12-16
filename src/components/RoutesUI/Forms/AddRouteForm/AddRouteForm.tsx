@@ -1,5 +1,4 @@
 import * as React from "react";
-import { toast } from "react-toastify";
 
 import { IAddRouteFormProps } from "./AddRouteFormProps";
 import { IAddRouteFormState } from "./AddRouteFormState";
@@ -80,7 +79,6 @@ class AddRouteForm extends React.Component<IAddRouteFormProps, IAddRouteFormStat
         event.preventDefault();
         const {vertex, node, cost} = this.state;
         this.props.addRoute(vertex, node, cost);
-        toast.success(`Route ${vertex + node + cost} was successfully added!`);
         this.setState({
             vertex: "",
             node: "",

@@ -1,4 +1,5 @@
 import { put } from "redux-saga/effects";
+import { toast } from "react-toastify";
 
 import * as RouteActions from "../actions/routeActions";
 import { RouteAction } from "../actions/routeActions";
@@ -17,13 +18,13 @@ export function* calculateDeliveryRouteCost(action: RouteAction) {
                 break;
             }
 
-            const vertex = routeGraph.adgencyList.get(startPoint);
-            if (vertex) {
-                if (vertex.includes(endPoint)) {
+            const nodes = routeGraph.adgencyList.get(startPoint);
+            if (nodes) {
+                if (nodes.includes(endPoint)) {
                     const cost = routeGraph.mapCostToRoute.get(
                         startPoint + endPoint
                     );
-                    totalCost += cost;
+                    totalCost += Number(cost);
                 } else {
                     noRoute = true;
                     break;
@@ -32,6 +33,7 @@ export function* calculateDeliveryRouteCost(action: RouteAction) {
         }
 
         if (noRoute) {
+            toast.error(`There are no route for ${route.join("")}`);
             yield put(RouteActions.calculateDeliveryRouteCostError(route));
         } else {
             yield put(RouteActions.calculateDeliveryRouteCostComplete({
@@ -68,7 +70,11 @@ export function* calculatePossibleDeliveryRoutes(action: RouteAction) {
                 routes.push(route.join("-"));
             } else {
                 const nodes = routeGraph.adgencyList.get(vertex);
-                if (maxStopCount && stopCount < maxStopCount) {
+                if (!nodes) {
+                    return routes;
+                }
+
+                if (maxStopCount && stopCount < maxStopCount || !maxStopCount) {
                     nodes.forEach((node) => {
                         if (!visited.get(node)) {
                             findPath(node, stopCount + 1);

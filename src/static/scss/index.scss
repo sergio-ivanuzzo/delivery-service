@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  font-size: 1rem;
 }
 
 * {
@@ -63,4 +64,16 @@ button {
 
 .flex-container {
   display: flex;
+}
+
+.data-container {
+  padding: 25px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-green {
+  color: green;
 }

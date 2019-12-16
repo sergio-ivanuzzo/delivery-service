@@ -103,7 +103,7 @@ export function actionCalculatePossibleDeliveryRoutesComplete(
     payload: IRouteActionPayload,
 ) {
     return {
-        type: RouteActionType.ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE,
+        type: RouteActionType.ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE_COMPLETE,
         payload,
     }
 }

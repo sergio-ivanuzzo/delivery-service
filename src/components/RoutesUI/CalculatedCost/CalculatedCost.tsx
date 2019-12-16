@@ -8,7 +8,7 @@ class CalculatedCost extends React.Component<ICalculatedCostProps> {
     public render(): React.ReactNode {
         if (this.props.route && this.props.cost) {
             return (
-                <div>
+                <div className={"data-container"}>
                     {this.renderOutput()}
                 </div>
             );
@@ -18,14 +18,14 @@ class CalculatedCost extends React.Component<ICalculatedCostProps> {
     }
 
     protected renderOutput = (): React.ReactNode => {
-        const label = `The delivery cost for route ${this.props.route}`;
+        const label = `The delivery cost for route ${this.props.route.join("")}: `;
         const cost = this.props.cost;
         return (
             <div>
-                <span>
+                <span className={"text-bold"}>
                     {label}
                 </span>
-                <span>
+                <span className={"text-bold text-green"}>
                     {cost}
                 </span>
             </div>
