@@ -11,12 +11,14 @@ export function* calculateDeliveryRouteCost(action: RouteAction) {
 
         let totalCost = 0;
         let noRoute = false;
+
         for (let i = 1; i < route.length; i++) {
             const startPoint = route[i - 1];
             const endPoint = route[i];
             if (!startPoint && !endPoint) {
                 break;
             }
+            console.log(startPoint, endPoint);
 
             const nodes = routeGraph.adgencyList.get(startPoint);
             if (nodes) {
