@@ -1,14 +1,17 @@
 import * as React from "react";
 
 import {
-    ICalculateDeliveryCostFormProps
+    ICalculateDeliveryCostFormProps as Props
 } from "./CalculateDeliveryCostFormProps";
 import {
-    ICalculateDeliveryCostFormState
+    ICalculateDeliveryCostFormState as State
 } from "./CalculateDeliveryCostFormState";
 
-class CalculateDeliveryCostForm extends
-    React.Component<ICalculateDeliveryCostFormProps, ICalculateDeliveryCostFormState> {
+class CalculateDeliveryCostForm extends React.Component<Props, State> {
+    public state: State = {
+        route: ""
+    };
+
     public render(): React.ReactNode {
         return (
             <div>
@@ -17,25 +20,42 @@ class CalculateDeliveryCostForm extends
                     autoComplete={"off"}
                     className={"flex-container"}
                 >
-                    <div></div>
+                    <div>
+                        <input
+                            type="text"
+                            onChange={this.handleInputChange("route")}
+                            value={this.state.route}
+                        />
+                    </div>
+                    <div>
+                        <button type="submit" className={"primary"}>
+                            Calculate
+                        </button>
+                    </div>
                 </form>
             </div>
         );
     }
 
+    protected handleInputChange = (
+        fieldName: string
+    ): (event: React.ChangeEvent) => void => (
+        event: React.ChangeEvent<HTMLInputElement>
+    ): void => {
+        const value = event.currentTarget.value;
+        this.setState({
+            ...this.state,
+            [fieldName]: value
+        });
+    };
+
     protected handleSubmit = (event: React.FormEvent): void => {
         event.preventDefault();
-        const { startPoint, destination, maxStopCount } = this.state;
-        this.props.calculatePossibleDeliveryRoutes(
-            startPoint,
-            destination,
-            maxStopCount
-        );
+        const { route } = this.state;
+        this.props.calculateDeliveryRouteCost(route.split(""));
         this.setState({
-            startPoint: "",
-            destination: "",
-            maxStopCount: 0
-        })
+            route: ""
+        });
     };
 }
 

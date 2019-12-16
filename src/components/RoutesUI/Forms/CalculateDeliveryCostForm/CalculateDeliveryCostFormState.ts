@@ -1,3 +1,3 @@
 export interface ICalculateDeliveryCostFormState {
-    route: Array<string>;
+    route: string;
 }
