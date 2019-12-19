@@ -17,11 +17,16 @@ class RouteContainer extends React.Component<IRouteContainerProps> {
 
     protected get injectedProps(): IRouteContainerChildProps {
         return {
+            // properties
             routeGraph: this.props.routeGraph,
             route: this.props.route,
             cost: this.props.cost,
             routes: this.props.routes,
             routesBetweenTowns: this.props.routesBetweenTowns,
+            maxStopCount: this.props.maxStopCount,
+            noRoute: this.props.noRoute,
+
+            // methods
             addRoute: this.addRoute,
             calculateDeliveryRouteCost: this.calculateDeliveryRouteCost,
             calculatePossibleDeliveryRoutes: this.calculatePossibleDeliveryRoutes
@@ -56,6 +61,8 @@ const mapStateToProps = (state: IStoreState) => ({
     cost: state.routeReducer.cost,
     routes: state.routeReducer.routes,
     routesBetweenTowns: state.routeReducer.routesBetweenTowns,
+    maxStopCount: state.routeReducer.maxStopCount,
+    noRoute: state.routeReducer.noRoute,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({

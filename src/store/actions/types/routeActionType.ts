@@ -40,6 +40,7 @@ export type RouteAction = {
     type: RouteActionType.ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE_COMPLETE,
     payload: {
         routes: string[];
+        maxStopCount?: number;
     },
 } | {
     type: RouteActionType.ROUTE_DELIVERY_CALCULATE_ERROR,

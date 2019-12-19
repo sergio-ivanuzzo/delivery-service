@@ -7,9 +7,11 @@ import {
     IPossibleRoutesFormState,
 } from "./PossibleRoutesFormState";
 
-import { maybe } from "../../../../helpers";
-import {IControlContainerInjectedProps} from "../ControlContainer/ControlContainerProps";
+import {
+    IControlContainerInjectedProps
+} from "../ControlContainer/ControlContainerProps";
 import ControlContainer from "../ControlContainer/ControlContainer";
+import { maybe } from "../../../../helpers";
 
 const initialState: IPossibleRoutesFormState = {
     startPoint: "",
@@ -104,7 +106,11 @@ class PossibleRoutesForm extends React.Component<IPossibleRoutesFormProps, IPoss
                     </ControlContainer>
                     <ControlContainer>
                         {() => (
-                            <button type="submit" className={"primary"}>
+                            <button
+                                type="submit"
+                                className={"primary"}
+                                disabled={this.isDisabled}
+                            >
                                 Calculate
                             </button>
                         )}
@@ -112,6 +118,10 @@ class PossibleRoutesForm extends React.Component<IPossibleRoutesFormProps, IPoss
                 </form>
             </div>
         );
+    }
+
+    protected get isDisabled() {
+        return !this.state.startPoint || !this.state.destination;
     }
 
     protected handleInputChange = (

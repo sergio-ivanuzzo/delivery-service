@@ -7,6 +7,8 @@ export interface IRouteData {
     cost?: number;
     routes?: string[];
     routesBetweenTowns?: string[];
+    maxStopCount?: number;
+    noRoute?: boolean;
 }
 
 export interface IRouteContainerProps extends IRouteData {

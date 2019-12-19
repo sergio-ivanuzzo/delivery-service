@@ -14,8 +14,6 @@ export function* calculateDeliveryRouteCost(action: RouteAction) {
         let totalCost = 0;
         let noRoute = false;
 
-        console.log(route);
-
         for (let i = 0; i < route.length - 1; i++) {
             const startPoint = route[i];
             const endPoint = route[i + 1];
@@ -98,7 +96,8 @@ export function* calculatePossibleDeliveryRoutes(action: RouteAction) {
 
         yield put(RouteActions.calculatePossibleDeliveryRoutesComplete({
             payload: {
-                routes
+                routes,
+                maxStopCount
             }
         }))
     }

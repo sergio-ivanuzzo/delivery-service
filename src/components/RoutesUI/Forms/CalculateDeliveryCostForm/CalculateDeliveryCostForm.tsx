@@ -63,7 +63,11 @@ class CalculateDeliveryCostForm extends React.Component<Props, State> {
 
                     <ControlContainer>
                         {() => (
-                            <button type="submit" className={"primary"}>
+                            <button
+                                type="submit"
+                                className={"primary"}
+                                disabled={this.isDisabled}
+                            >
                                 Calculate
                             </button>
                         )}
@@ -71,6 +75,10 @@ class CalculateDeliveryCostForm extends React.Component<Props, State> {
                 </form>
             </div>
         );
+    }
+
+    protected get isDisabled() {
+        return !this.state.route;
     }
 
     protected handleInputChange = (

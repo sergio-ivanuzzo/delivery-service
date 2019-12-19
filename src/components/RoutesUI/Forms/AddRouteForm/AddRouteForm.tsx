@@ -119,7 +119,7 @@ class AddRouteForm extends React.Component<IAddRouteFormProps, IAddRouteFormStat
             return true;
         }
 
-        return cost < 0;
+        return !cost || cost < 0;
     }
 
     protected handleInputChange = (

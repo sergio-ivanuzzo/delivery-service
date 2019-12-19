@@ -7,13 +7,11 @@ import {
 
 export interface IRouteReducerState extends IRouteData {
     routesBetweenTowns: string[];
-    noRoute: boolean;
 }
 
 export const initialState: IRouteReducerState = {
     routeGraph: new RouteGraph(),
     routesBetweenTowns: [],
-    noRoute: false
 };
 
 export const routeReducer = (state = initialState, action: RouteAction): IRouteReducerState => {
@@ -30,27 +28,29 @@ export const routeReducer = (state = initialState, action: RouteAction): IRouteR
 
             return {
                 ...state,
-                routesBetweenTowns
+                routesBetweenTowns,
             };
         }
         case RouteActionType.ROUTE_DELIVERY_CALCULATE_COMPLETE: {
             return {
                 ...state,
                 route: action.payload.route,
-                cost: action.payload.cost
+                noRoute: false,
+                cost: action.payload.cost,
             }
         }
         case RouteActionType.ROUTE_DELIVERY_CALCULATE_ERROR: {
             return {
                 ...state,
                 route: action.payload.route,
-                noRoute: true
+                noRoute: true,
+                cost: undefined,
             }
         }
         case RouteActionType.ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE_COMPLETE: {
             return {
                 ...state,
-                routes: action.payload.routes
+                routes: action.payload.routes,
             }
         }
         default: {
