@@ -7,31 +7,67 @@ import {
     ICalculateDeliveryCostFormState as State
 } from "./CalculateDeliveryCostFormState";
 
+import { maybe } from "../../../../helpers";
+import {
+    IControlContainerInjectedProps
+} from "../ControlContainer/ControlContainerProps";
+import ControlContainer from "../ControlContainer/ControlContainer";
+
+const initialState: State = {
+    route: ""
+};
+
 class CalculateDeliveryCostForm extends React.Component<Props, State> {
-    public state: State = {
-        route: ""
-    };
+    public state: State = initialState;
 
     public render(): React.ReactNode {
+        const { routesBetweenTowns } = this.props;
+        if (!maybe(routesBetweenTowns, "length")) {
+            return null;
+        }
+
         return (
-            <div>
+            <div className={"form-container"}>
+                <div className="text-center form-header">
+                    Here you can calculate cost of delivery route
+                </div>
                 <form
                     onSubmit={this.handleSubmit}
                     autoComplete={"off"}
                     className={"flex-container"}
                 >
-                    <div>
-                        <input
-                            type="text"
-                            onChange={this.handleInputChange("route")}
-                            value={this.state.route}
-                        />
-                    </div>
-                    <div>
-                        <button type="submit" className={"primary"}>
-                            Calculate
-                        </button>
-                    </div>
+                    <ControlContainer value={this.state.route}>
+                        {(injectedProps: IControlContainerInjectedProps) => (
+                            <>
+                                <label
+                                    className={`form-label ${injectedProps.showLabelAsPlaceholder}`}
+                                    htmlFor="route"
+                                >
+                                    Route
+                                </label>
+                                <input
+                                    id={"route"}
+                                    type="text"
+                                    className={"form-control"}
+                                    onChange={this.handleInputChange("route")}
+                                    value={this.state.route}
+                                    onFocus={injectedProps.handleFocus}
+                                    onBlur={injectedProps.handleBlur}
+                                />
+                                <div className="text-help">
+                                    Type only points, for example: ABC
+                                </div>
+                            </>
+                        )}
+                    </ControlContainer>
+
+                    <ControlContainer>
+                        {() => (
+                            <button type="submit" className={"primary"}>
+                                Calculate
+                            </button>
+                        )}
+                    </ControlContainer>
                 </form>
             </div>
         );
@@ -54,7 +90,7 @@ class CalculateDeliveryCostForm extends React.Component<Props, State> {
         const { route } = this.state;
         this.props.calculateDeliveryRouteCost(route.split(""));
         this.setState({
-            route: ""
+            ...initialState
         });
     };
 }

@@ -1,0 +1,17 @@
+form {
+  padding: 25px;
+}
+
+.form-container {
+  box-shadow: 0 0 3px 0 $blue;
+  width: 80%;
+  margin: 15px auto 0;
+  border-radius: 5px;
+  padding: 10px;
+  background: rgba($gray-200, .5);
+
+  .form-header {
+    padding: 0 25px;
+    font-size: 25px;
+  }
+}

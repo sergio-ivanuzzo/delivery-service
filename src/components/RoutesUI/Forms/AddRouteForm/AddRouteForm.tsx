@@ -2,52 +2,111 @@ import * as React from "react";
 
 import { IAddRouteFormProps } from "./AddRouteFormProps";
 import { IAddRouteFormState } from "./AddRouteFormState";
+import ControlContainer from "../ControlContainer/ControlContainer";
+import {
+    IControlContainerInjectedProps
+} from "../ControlContainer/ControlContainerProps";
+
+const initialState: IAddRouteFormState = {
+    vertex: "",
+    node: "",
+    cost: undefined
+};
 
 class AddRouteForm extends React.Component<IAddRouteFormProps, IAddRouteFormState> {
-    public state: IAddRouteFormState = {
-        vertex: "",
-        node: "",
-        cost: 0,
-    };
+    public state: IAddRouteFormState = initialState;
 
     public render(): React.ReactNode {
         return (
-            <div>
+            <div className={"form-container"}>
+                <div className="text-center form-header">
+                    Please add route between two towns
+                </div>
                 <form
                     onSubmit={this.handleSubmit}
                     autoComplete={"off"}
                     className={"flex-container"}
                 >
-                    <div>
-                        <input
-                            type="text"
-                            onChange={this.handleInputChange("vertex")}
-                            value={this.state.vertex}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            onChange={this.handleInputChange("node")}
-                            value={this.state.node}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="number"
-                            onChange={this.handleInputChange("cost")}
-                            value={this.state.cost}
-                        />
-                    </div>
-                    <div>
-                        <button
-                            type="submit"
-                            className={"primary"}
-                            disabled={this.isDisabled}
-                        >
-                            Add
-                        </button>
-                    </div>
+                    <ControlContainer value={this.state.vertex}>
+                        {(injectedProps: IControlContainerInjectedProps) => (
+                            <>
+                                <label
+                                    className={`form-label ${injectedProps.showLabelAsPlaceholder}`}
+                                    htmlFor="vertex"
+                                >
+                                    Start Point
+                                </label>
+                                <input
+                                    id={"vertex"}
+                                    type="text"
+                                    onChange={this.handleInputChange("vertex")}
+                                    value={this.state.vertex}
+                                    className={"form-control"}
+                                    onFocus={injectedProps.handleFocus}
+                                    onBlur={injectedProps.handleBlur}
+                                />
+                            </>
+                        )}
+                    </ControlContainer>
+
+                    <ControlContainer value={this.state.node}>
+                        {(injectedProps: IControlContainerInjectedProps) => (
+                            <>
+                                <label
+                                    className={`form-label ${injectedProps.showLabelAsPlaceholder}`}
+                                    htmlFor="node"
+                                >
+                                    End Point
+                                </label>
+                                <input
+                                    id={"node"}
+                                    type="text"
+                                    onChange={this.handleInputChange("node")}
+                                    value={this.state.node}
+                                    className={"form-control"}
+                                    onFocus={injectedProps.handleFocus}
+                                    onBlur={injectedProps.handleBlur}
+                                />
+                            </>
+                        )}
+                    </ControlContainer>
+
+                    <ControlContainer value={this.state.cost}>
+                        {(injectedProps: IControlContainerInjectedProps) => (
+                            <>
+                                <label
+                                    className={`form-label ${injectedProps.showLabelAsPlaceholder}`}
+                                    htmlFor="cost"
+                                >
+                                    Cost
+                                </label>
+                                <input
+                                    id={"cost"}
+                                    type="number"
+                                    onChange={this.handleInputChange("cost")}
+                                    value={this.state.cost || ""}
+                                    className={"form-control"}
+                                    onFocus={injectedProps.handleFocus}
+                                    onBlur={injectedProps.handleBlur}
+                                />
+                                <div className="text-help">
+                                    Cost of route between two towns
+                                </div>
+                            </>
+                        )}
+                    </ControlContainer>
+
+                    <ControlContainer>
+                        {() => (
+                            <button
+                                type="submit"
+                                className={"primary"}
+                                disabled={this.isDisabled}
+                            >
+                                Add
+                            </button>
+                        )}
+                    </ControlContainer>
                 </form>
             </div>
         );
@@ -77,12 +136,10 @@ class AddRouteForm extends React.Component<IAddRouteFormProps, IAddRouteFormStat
 
     protected handleSubmit = (event: React.FormEvent): void => {
         event.preventDefault();
-        const {vertex, node, cost} = this.state;
+        const { vertex, node, cost } = this.state;
         this.props.addRoute(vertex, node, cost);
         this.setState({
-            vertex: "",
-            node: "",
-            cost: 0
+            ...initialState
         });
     }
 }

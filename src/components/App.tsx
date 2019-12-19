@@ -10,7 +10,7 @@ import {
 
 import AddRouteForm from "./RoutesUI/Forms/AddRouteForm/AddRouteForm";
 import PossibleRoutesForm from "./RoutesUI/Forms/PossibleRoutesForm/PossibleRoutesForm";
-import AvailableRoutes from "./RoutesUI/AvailableRoutes/AvailableRoutes";
+import ExistingRoutes from "./RoutesUI/ExistingRoutes/ExistingRoutes";
 import CalculateDeliveryCostForm from "./RoutesUI/Forms/CalculateDeliveryCostForm/CalculateDeliveryCostForm";
 import CalculatedCost from "./RoutesUI/CalculatedCost/CalculatedCost";
 import PossibleRoutes from "./RoutesUI/PossibleRoutes/PossibleRoutes";
@@ -30,7 +30,7 @@ class App extends React.Component {
         return (
             <>
                 <AddRouteForm {...props} />
-                <AvailableRoutes {...props} />
+                <ExistingRoutes {...props} />
                 <CalculateDeliveryCostForm {...props} />
                 <CalculatedCost {...props} />
                 <PossibleRoutesForm {...props} />

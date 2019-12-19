@@ -1,0 +1,78 @@
+button {
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 2px 0 #00e600;
+  font-weight: bold;
+  transition: 0.3s ease-out;
+
+  &.outline {
+    background: transparent;
+
+    &:hover:not(:disabled) {
+      background: rgba(#5352ed, 0.3);
+      box-shadow: 0 0 2px 0 #5352ed;
+    }
+  }
+
+  &.primary {
+    background: #3742fa;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: rgba(#3742fa, 0.2);
+      color: black;
+    }
+  }
+
+  &:disabled {
+    box-shadow: 0 0 2px 0 gray;
+    background: rgba(gray, .3);
+    color: silver;
+    cursor: not-allowed;
+  }
+}
+
+.form-control {
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  box-shadow: 0 0 3px 0 $cyan;
+  font-size: 16px;
+  height: 32px;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    box-shadow: 0 0 5px 0 $cyan;
+  }
+}
+
+.form-label {
+  position: absolute;
+  top: 17px;
+  left: 20px;
+  color: $gray-500;
+  cursor: text;
+  transition: all .15s ease-in-out 0s;
+  z-index: 2;
+  white-space: nowrap;
+
+  &.active {
+    top: 15px;
+    font-size: 75%;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1;
+    background: $white;
+    padding: 0 3px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: $black;
+  }
+}
+
+.control-container {
+  padding: 10px;
+  position: relative;
+}

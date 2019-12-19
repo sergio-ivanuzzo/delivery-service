@@ -1,3 +1,8 @@
+@import "variables";
+@import "controls";
+@import "forms";
+@import "text";
+
 html, body {
   height: 100%;
   font-size: 1rem;
@@ -5,57 +10,6 @@ html, body {
 
 * {
   box-sizing: border-box;
-}
-
-form {
-  padding: 25px;
-}
-
-input[type="text"], input[type="number"], input[type="search"] {
-  padding: 10px;
-  margin: 2px;
-  outline: none;
-  border: none;
-  box-shadow: 0 0 2px 0 #00e600;
-
-  &:hover {
-    //box-shadow: 0 0 3px 0 #aabcff;
-  }
-}
-
-button {
-  padding: 10px;
-  border: none;
-  margin: 2px;
-  cursor: pointer;
-  box-shadow: 0 0 2px 0 #00e600;
-  font-weight: bold;
-  transition: 0.3s ease-out;
-
-  &.outline {
-    background: transparent;
-
-    &:hover:not(:disabled) {
-      background: rgba(#5352ed, 0.3);
-      box-shadow: 0 0 2px 0 #5352ed;
-    }
-  }
-
-  &.primary {
-    background: #3742fa;
-    color: white;
-
-    &:hover:not(:disabled) {
-      background: rgba(#3742fa, 0.2);
-      color: black;
-    }
-  }
-
-  &:disabled {
-    box-shadow: 0 0 2px 0 gray;
-    background: gray;
-    color: silver;
-  }
 }
 
 #root {
@@ -67,13 +21,12 @@ button {
 }
 
 .data-container {
-  padding: 25px;
-}
+  padding: 5px 15px 25px;
+  width: 80%;
+  margin: 15px auto 5px;
+  background: rgba($gray-100, .5);
 
-.text-bold {
-  font-weight: bold;
-}
-
-.text-green {
-  color: green;
+  .title {
+    font-size: 20px;
+  }
 }

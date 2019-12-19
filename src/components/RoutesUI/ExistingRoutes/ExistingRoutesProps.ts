@@ -1,6 +1,6 @@
 import RouteGraph from "../../../dataStructures/RouteGraph";
 
-export interface IAvailableRoutesProps {
+export interface IExistingRoutesProps {
     routeGraph: RouteGraph;
     routesBetweenTowns?: string[];
 }
