@@ -2,8 +2,10 @@ import { put } from "redux-saga/effects";
 import { toast } from "react-toastify";
 
 import * as RouteActions from "../actions/routeActions";
-import { RouteAction } from "../actions/routeActions";
-import { RouteActionType } from "../actions/routeActions";
+import {
+    RouteAction,
+    RouteActionType
+} from "../actions/types/routeActionType";
 
 export function* calculateDeliveryRouteCost(action: RouteAction) {
     if (action.type === RouteActionType.ROUTE_DELIVERY_CALCULATE) {
@@ -12,35 +14,36 @@ export function* calculateDeliveryRouteCost(action: RouteAction) {
         let totalCost = 0;
         let noRoute = false;
 
-        for (let i = 1; i < route.length; i++) {
-            const startPoint = route[i - 1];
-            const endPoint = route[i];
-            if (!startPoint && !endPoint) {
-                break;
-            }
-            console.log(startPoint, endPoint);
+        console.log(route);
 
-            const nodes = routeGraph.adgencyList.get(startPoint);
-            if (nodes) {
-                if (nodes.includes(endPoint)) {
-                    const cost = routeGraph.mapCostToRoute.get(
-                        startPoint + endPoint
-                    );
-                    totalCost += Number(cost);
-                } else {
-                    noRoute = true;
-                    break;
-                }
+        for (let i = 0; i < route.length - 1; i++) {
+            const startPoint = route[i];
+            const endPoint = route[i + 1];
+
+            const cost = routeGraph.mapCostToRoute.get(startPoint + endPoint);
+
+            if (cost) {
+                totalCost += Number(cost);
+            } else {
+                noRoute = true;
+                break;
             }
         }
 
         if (noRoute) {
             toast.error(`There are no route for ${route.join("")}`);
-            yield put(RouteActions.calculateDeliveryRouteCostError(route));
+            yield put(RouteActions.calculateDeliveryRouteCostError({
+                payload: {
+                    route,
+                    noRoute: true
+                }
+            }));
         } else {
             yield put(RouteActions.calculateDeliveryRouteCostComplete({
-                route,
-                cost: totalCost
+                payload: {
+                    route,
+                    cost: totalCost
+                }
             }));
         }
     }
@@ -93,8 +96,10 @@ export function* calculatePossibleDeliveryRoutes(action: RouteAction) {
 
         findPath(startPoint, 0);
 
-        yield put(RouteActions.actionCalculatePossibleDeliveryRoutesComplete({
-            routes
+        yield put(RouteActions.calculatePossibleDeliveryRoutesComplete({
+            payload: {
+                routes
+            }
         }))
     }
 }

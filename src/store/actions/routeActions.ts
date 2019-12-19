@@ -1,109 +1,48 @@
-import RouteGraph from "../../dataStructures/RouteGraph";
+import {
+    RouteAction,
+    RouteActionType
+} from "./types/routeActionType";
 
-export enum RouteActionType {
-    ROUTE_BETWEEN_TWO_TOWNS_ADD = "ROUTE_BETWEEN_TWO_TOWNS_ADD",
-    ROUTE_DELIVERY_CALCULATE = "ROUTE_DELIVERY_CALCULATE",
-    ROUTE_DELIVERY_CALCULATE_COMPLETE = "ROUTE_DELIVERY_CALCULATE_COMPLETE",
-    ROUTE_DELIVERY_CALCULATE_ERROR = "ROUTE_DELIVERY_CALCULATE_ERROR",
-    ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE = "ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE",
-    ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE_COMPLETE = "ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE_COMPLETE",
-}
-
-type IRouteActionPayload = {
-    vertex: string;
-    node: string;
-    cost: number;
-} | {
-    routeGraph: RouteGraph;
-    route: string[];
-} | {
-    route: string[];
-    cost: number;
-} | {
-    routeGraph: RouteGraph;
-    startPoint: string;
-    destination: string;
-    maxStopCount?: number;
-} | {
-    routes: string[];
-};
-
-export type RouteAction = {
-    type: RouteActionType.ROUTE_BETWEEN_TWO_TOWNS_ADD,
-    payload: {
-        vertex: string;
-        node: string;
-        cost: number;
-    },
-} | {
-    type: RouteActionType.ROUTE_DELIVERY_CALCULATE,
-    payload: {
-        routeGraph: RouteGraph;
-        route: string[];
-    },
-} | {
-    type: RouteActionType.ROUTE_DELIVERY_CALCULATE_COMPLETE,
-    payload: {
-        route: string[];
-        cost: number;
-    },
-} | {
-    type: RouteActionType.ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE,
-    payload: {
-        routeGraph: RouteGraph,
-        startPoint: string,
-        destination: string,
-        maxStopCount?: number
-    },
-} | {
-    type: RouteActionType.ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE_COMPLETE,
-    payload: {
-        routes: string[];
-    },
-}
-
-export function actionAddRoute(payload: IRouteActionPayload) {
+export function addRoute(payload: Pick<RouteAction, "payload">) {
     return {
         type: RouteActionType.ROUTE_BETWEEN_TWO_TOWNS_ADD,
-        payload,
+        ...payload,
     }
 }
 
-export function calculateDeliveryRouteCost(payload: IRouteActionPayload) {
+export function calculateDeliveryRouteCost(payload: Pick<RouteAction, "payload">) {
     return {
         type: RouteActionType.ROUTE_DELIVERY_CALCULATE,
-        payload,
+        ...payload,
     }
 }
 
-export function calculateDeliveryRouteCostComplete(payload: IRouteActionPayload) {
+export function calculateDeliveryRouteCostComplete(payload: Pick<RouteAction, "payload">) {
     return {
         type: RouteActionType.ROUTE_DELIVERY_CALCULATE_COMPLETE,
-        payload,
+        ...payload,
     }
 }
 
-export function calculateDeliveryRouteCostError(route: Array<string>) {
+export function calculateDeliveryRouteCostError(payload: Pick<RouteAction, "payload">) {
     return {
         type: RouteActionType.ROUTE_DELIVERY_CALCULATE_ERROR,
-        payload: {
-            route,
-        },
+        ...payload,
     }
 }
 
-export function actionCalculatePossibleDeliveryRoutes(payload: IRouteActionPayload) {
+export function calculatePossibleDeliveryRoutes(payload: Pick<RouteAction, "payload">) {
     return {
         type: RouteActionType.ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE,
-        payload,
+        ...payload,
     }
 }
 
-export function actionCalculatePossibleDeliveryRoutesComplete(
-    payload: IRouteActionPayload,
+export function calculatePossibleDeliveryRoutesComplete(
+    payload: Pick<RouteAction, "payload">,
 ) {
     return {
         type: RouteActionType.ROUTE_DELIVERY_POSSIBLE_ROUTES_CALCULATE_COMPLETE,
-        payload,
+        ...payload,
     }
 }

@@ -63,28 +63,34 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
         vertex: string,
         node: string,
         cost: number
-    ) => dispatch(RouteActions.actionAddRoute({
-        vertex,
-        node,
-        cost
+    ) => dispatch(RouteActions.addRoute({
+        payload: {
+            vertex,
+            node,
+            cost
+        }
     })),
     calculateDeliveryRouteCost: (
         routeGraph: RouteGraph,
         route: Array<string>
     ) => dispatch(RouteActions.calculateDeliveryRouteCost({
-        routeGraph,
-        route
+        payload: {
+            routeGraph,
+            route
+        }
     })),
     calculatePossibleDeliveryRoutes: (
         routeGraph: RouteGraph,
         startPoint: string,
         destination: string,
         maxStopCount?: number
-    ) => dispatch(RouteActions.actionCalculatePossibleDeliveryRoutes({
-        routeGraph,
-        startPoint,
-        destination,
-        maxStopCount
+    ) => dispatch(RouteActions.calculatePossibleDeliveryRoutes({
+        payload: {
+            routeGraph,
+            startPoint,
+            destination,
+            maxStopCount
+        }
     }))
 });
 
